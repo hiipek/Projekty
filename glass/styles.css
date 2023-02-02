@@ -1,0 +1,206 @@
+:root {
+    --green: #B1EDD9;
+    --dark: #508578;
+}
+/* dodanie zmiennej CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw; 
+    /* jak chce żeby body było szerokie na całą szerokość - 
+    skrót od viewport width - 1vw równa się 1% szerokosci ekranu */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* wyśrodkowanie ramki na stronie przy górnym marginesie */
+    align-items: center;
+    background: var(--green);
+    background: linear-gradient(to right top, var(--dark), var(--green));
+    /* żeby dodać gradient w CSS */
+    overflow: hidden;
+    /* obiekt z animacji zjezdza na dół ekranu i odbija się od krawedzi, naprawiam to tak */
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    max-height: 80vh;
+    display: flex;
+    flex-wrap: wrap;
+    /* wrap- określa, że elementy będą przenoszone 
+    do kolejnej linii jeżeli zajdzie taka potrzeba. */
+    background: rgba(0, 0, 0, 0.350);
+    background: linear-gradient(to right top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.350));
+    padding: 32px 92px;
+    border-radius: 20px;
+    position: relative;
+    /* umieszczenie obiektu pod ramką */
+    backdrop-filter: blur(8px);
+    /* rozmycie "szyby" */
+    -webkit-backdrop-filter: blur(8px);
+    /* powoduje że te rozmycie bedzie działało 
+    również na przegladarce Safari */
+    overflow: auto;
+    /* dodanie skrolowania strony */
+}
+
+.bg_img {
+    position: absolute;
+}
+
+.bg_img--tarka1 {
+    top: 0;
+    right: 64.5%;
+    /* powoduje przejście obiektu od góry do dołu strony */
+    height: 30vh;
+    animation: slideDown 15s linear infinite;
+    /* żeby użyć tej animacji umieszczam ją w klasie, 
+    dodanie wartości infinite powoduje że animacja będzie się powtarzać 
+    dodanie linear powoduje że animacja przechodzi ze stałą prędkością*/
+}
+
+.bg_img--dots {
+    /* kropki */
+    top: 0;
+    left: 50%;
+    height: 75vh;
+    animation: rotate 30s linear infinite;
+}
+
+.bg_img--logo {
+    /* CUDO */
+    top: 10%;
+    bottom: 10%;
+    width: 30%;
+    transform: translate(0, -30%);
+        /* pierwsza wartość przesunięcie w poziomie
+    druga w pionie */
+    opacity: 0.75;
+    /* transparentnosc */
+}
+
+header {
+    flex: 1;
+    /* właściwosc flex */
+}
+
+h1 {
+    padding: 24px 0 12px;
+    font-size: 48px;
+}
+
+p {
+    padding-bottom: 12px;
+    /* padding dodaje odstępy interlinii miedzy wierszami 
+    w akapitach p */
+    font-size: 24px;
+    font-weight: 400;
+}
+
+a {
+    color: var(--green);
+    text-decoration: none;
+    position: relative;
+}
+
+a:after {
+    content: "";
+    /* selektor .link_border zamienił sie na pseudo-element a:after, koniecznie trzeba do niego dodać
+    content */
+    width: 0;
+    height: 3px;
+    position: absolute;
+    top: 100%;
+    /* 100% od górnej krawędzi ma się znajdować */
+    left: 0;
+    /* justowanie do lewej */
+    background-color: var(--green);
+    background: linear-gradient(90deg, transparent, var(--green));
+    transition: width 0.3s;
+    /* animacja podkreślenia linku na banerze w stanie spoczynku, po najechaniu style zmieniają się
+    z selektora a:hover */
+}
+
+a:hover:after {
+    /* zamiana selektroa .link_border tylko dla elementu a, który jest w stanie hover na :after */
+    width: 100%;
+}
+    /* użycie pseudo selektora, sprawi że style umieszczone w tym selektorze zadziałają
+    za każdym razem jak kursor znajdzie sie na linku | 
+    czyli link_border znajduje sie w a tylko wtedy gdy najedzie sie na link */
+
+.stopy_img {
+    width: 200px;
+    height: 200px;
+    margin-right: 80px;
+    overflow: hidden;
+    background: var(--green);
+    border-radius: 100%; /* robi kółeczko z obramowania */
+    border: solid 3px var(--dark);
+}
+
+main {
+    display:flex;
+}
+
+.stopy_img img {
+    width: 100%;
+   
+}
+
+button {
+    width: 350px;
+    margin-top: 32px;
+    padding: 16px 0;
+    font-size: 42px;
+    font-weight: 700;
+    color: white;
+    background: var(--dark);
+    background: linear-gradient(to right top, var(--green), var(--dark));
+    border: none;
+    position: relative;
+    cursor:pointer;
+    overflow: hidden; /* cwane ukrycie przelatujacego prostokąta poza przyciskiem */
+    /* zmiana wyglądu myszki na rączkę po najechaniu na przycisk  */
+}
+
+button:focus {
+    outline-color: white;
+}
+
+button:after {
+    width: 50px;
+    height: 150%;
+    position:absolute;
+    left: -100px;
+    top: -25px;
+    content: "";
+    background-color:rgba(250, 250, 250, 0.2);
+    transform: rotate(30deg);
+    transition: transform 0.4s;
+    
+    /* efekt prostokąta po najechaniu na przycisk */
+}
+
+button:hover:after {
+    transform: translateX(500px) rotate(30deg);
+}
+
+@keyframes slideDown {
+    from {transform: translateY(-30vh)}
+    /*  */
+    to {transform: translateY(100vh)}
+}
+/* tworzenie animacji od góry do dołu w CSS, wymyślanie własnej nazwy */
+
+@keyframes rotate {
+    from {transform: rotate(0deg)}
+    /* deg stopnie o ile ma się obrócić */
+    to {transform: rotate(360deg)}
+}
+/* tworzenie animacji żeby się obracała 360 stopni */
